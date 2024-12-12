@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income and Expense Tracker by Ryo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Income and Expense Tracker by Ryo</h1>
+    </header>
+    <main>
+        <section id="introduction" class="center">
+            <h2>Introducing my Project</h2>
+            <h6>Perkenalkan, nama saya Ryo Satriagung Hidayat.<br>
+                Selamat datang di aplikasi Income and Expense Tracker yang saya buat dengan penuh dedikasi untuk membantu anda mengelola keuangan secara lebih rapi, terstruktur, dan efisien.
+                
+                Aplikasi ini dirancang untuk mempermudah Anda dalam mencatat pemasukan, pengeluaran, serta mengelompokkan data berdasarkan kategori yang sesuai dengan kebutuhan anda.
+
+                Saya harap aplikasi ini bisa menjadi solusi praktis untuk Anda yang ingin mencapai kestabilan finansial.
+                Terima kasih telah menggunakan aplikasi ini, dan semoga bermanfaat untuk mendukung kesuksesan anda! <br> (disarankan membuka di dekstop site/halaman dekstop)<br></h6>
+        </section>
+        <section id="input-section">
+            <h2>List Pengeluaran dan Pemasukan :</h2>
+            <form id="expense-form">
+                <label for="transaction-type">Tipe:</label>
+                <select id="transaction-type" required>
+                    <option value="income">Pemasukan</option>
+                    <option value="expense">Pengeluaran</option>
+                </select>
+                
+                <label for="transaction-name">Nama:</label>
+                <input type="text" id="transaction-name" required>
+                
+                <label for="transaction-amount">Jumlah (Rp):</label>
+                <input type="number" id="transaction-amount" required>
+                
+                <button type="submit">Add</button>
+            </form>
+            <button id="save-button">Save Data</button>
+            <button id="reset-button">Reset Data</button>
+        </section>
+        <section id="transaction-list">
+            <h2>Pemasukan :</h2>
+            <table class="income-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jumlah (Rp)</th>
+                    </tr>
+                </thead>
+                <tbody id="income-transactions">
+                    <!-- Data akan ditambahkan di sini -->
+                </tbody>
+            </table>
+            <h2>Pengeluaran :</h2>
+            <table class="expense-table">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Jumlah (Rp)</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-transactions">
+                    <!-- Data akan ditambahkan di sini -->
+                </tbody>
+            </table>
+            <h2>Saldo :</h2>
+            <table class="balance-table">
+                <thead>
+                    <tr>
+                        <th>Pemasukan</th>
+                        <th>Pengeluaran</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tbody id="balance-transactions">
+                    <!-- Data akan ditambahkan di sini -->
+                </tbody>
+            </table>
+            <div id="total-transactions">
+                <strong>Total: Rp <span id="total-amount">0</span></strong>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+<style>body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a2e;
+    color: #ffffff;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+header {
+    background-color: #16213e;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    animation: slideDown 1s ease-in-out;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+main {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    background-color: #16213e;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    animation: bounceIn 1s ease-in-out;
+}
+
+.center {
+    text-align: center;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-top: 10px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000000;
+}
+
+form button {
+    background-color: #e74c3c;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+form button:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+#save-button, #reset-button {
+    background-color: #e67e22;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#save-button:hover, #reset-button:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: tableFadeIn 1s ease-in-out;
+}
+
+@keyframes tableFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    color: #000000;
+    background-color: #ffffff;
+    border-right: 1px solid #ccc;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+th {
+    background-color: #243b55;
+    color: #ffffff;
+    text-transform: uppercase;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.income-table th, .income-table td,
+.expense-table th, .expense-table td,
+.balance-table th, .balance-table td {
+    width: 50%;
+}
+
+.income-table th {
+    background-color: #2ecc71;
+}
+
+.expense-table th {
+    background-color: #e74c3c;
+}
+
+.balance-table th {
+    background-color: #3498db;
+}
+
+.income {
+    background-color: #2ecc71;
+}
+
+.expense {
+    background-color: #e74c3c;
+}
+
+.balance {
+    background-color: #3498db;
+}
+
+#total-transactions {
+    margin-top: 20px;
+    font-size: 1.2em;
+    text-align: right;
+    color: #f39c12;
+}
+
+@media (max-width: 600px) {
+    section {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    form label, form input, form button {
+        font-size: 1em;
+    }
+
+    table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
+
+    th {
+        background-color: #243b55;
+    }
+}
+</style>
+
+
+
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const expenseForm = document.getElementById('expense-form');
+    const transactionTypeInput = document.getElementById('transaction-type');
+    const transactionNameInput = document.getElementById('transaction-name');
+    const transactionAmountInput = document.getElementById('transaction-amount');
+    const incomeTransactionList = document.getElementById('income-transactions');
+    const expenseTransactionList = document.getElementById('expense-transactions');
+    const balanceTransactionList = document.getElementById('balance-transactions');
+    const saveButton = document.getElementById('save-button');
+    const resetButton = document.getElementById('reset-button');
+    const totalAmountElement = document.getElementById('total-amount');
+
+    let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+    let totalAmount = 0;
+
+    function init() {
+        transactions.forEach(transaction => addTransactionToList(transaction));
+        updateTotalAmount();
+    }
+
+    expenseForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const type = transactionTypeInput.value;
+        const name = transactionNameInput.value;
+        const amount = parseFloat(transactionAmountInput.value);
+
+        if (amount <= 0) {
+            alert('Jumlah harus lebih besar dari 0');
+            return;
+        }
+
+        if (type && name && amount) {
+            const transaction = { type, name, amount };
+            transactions.push(transaction);
+            addTransactionToList(transaction);
+            updateTotalAmount();
+            expenseForm.reset();
+        }
+    });
+
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+        alert('Data disimpan!');
+    });
+
+    resetButton.addEventListener('click', function() {
+        transactions = [];
+        localStorage.removeItem('transactions');
+        incomeTransactionList.innerHTML = '';
+        expenseTransactionList.innerHTML = '';
+        balanceTransactionList.innerHTML = '';
+        totalAmount = 0;
+        updateTotalAmount();
+        alert('Data di-reset!');
+    });
+
+    function addTransactionToList(transaction) {
+        const row = document.createElement('tr');
+        row.className = transaction.type;
+        row.innerHTML = `<td>${transaction.name}</td><td>Rp ${formatNumber(transaction.amount)}</td>`;
+        if (transaction.type === 'income') {
+            incomeTransactionList.appendChild(row);
+        } else if (transaction.type === 'expense') {
+            expenseTransactionList.appendChild(row);
+        }
+    }
+
+    function updateTotalAmount() {
+        const totalIncome = transactions.reduce((sum, transaction) => transaction.type === 'income' ? sum + transaction.amount : sum, 0);
+        const totalExpenses = transactions.reduce((sum, transaction) => transaction.type === 'expense' ? sum + transaction.amount : sum, 0);
+        const balance = totalIncome - totalExpenses;
+
+        const balanceRow = document.createElement('tr');
+        balanceRow.className = 'balance';
+        balanceRow.innerHTML = `<td>Rp ${formatNumber(totalIncome)}</td><td>Rp ${formatNumber(totalExpenses)}</td><td>Rp ${formatNumber(balance)}</td>`;
+
+        balanceTransactionList.innerHTML = ''; // Clear previous balance
+        balanceTransactionList.appendChild(balanceRow);
+
+        totalAmountElement.textContent = formatNumber(balance);
+    }
+
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    init();
+});
+</script>
